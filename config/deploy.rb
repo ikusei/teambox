@@ -2,6 +2,7 @@
 #$:.unshift(File.expand_path("~/.rvm/lib"))
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require 'rvm/capistrano'
+
 set :branch, ENV['BRANCH']
 
 set :rvm_ruby_string, 'ree-1.8.7-2011.02@teambox'
@@ -16,11 +17,11 @@ set :scm, :git
 set :user, 'ikusei'
 
 #git
-set :repository,  "ssh://git@github.com:ikusei/teambox.git"
+set :repository,  "git@github.com:ikusei/teambox.git"
 if branch && branch.present?
   set :branch, branch
 else
-  set :branch, "master"
+  set :branch, "rails3.1"
 end
 set :deploy_via, :remote_cache
 set :deploy_env, 'production'
@@ -28,7 +29,7 @@ set :rails_env, "production"
 set :migrate_env, "production"
 
 
-set :deploy_to, "/home/ikusei/emobility_summit"
+set :deploy_to, "/home/ikusei/teambox"
 set :db_name, "db_#{application}"
 set :db_username, "user_#{application}"
 
@@ -36,9 +37,9 @@ set :ip_address, '178.23.121.2'
 set :use_sudo, false
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "178.23.121.29"                          # Your HTTP server, Apache/etc
-role :app, "178.23.121.29"                          # This may be the same as your `Web` server
-role :db,  "178.23.121.29", :primary => true        # This is where Rails migrations will run  
+role :web, "178.23.121.6"                          # Your HTTP server, Apache/etc
+role :app, "178.23.121.6"                          # This may be the same as your `Web` server
+role :db,  "178.23.121.6", :primary => true        # This is where Rails migrations will run  
 
 
 

@@ -52,6 +52,10 @@ gem 'juggernaut'
 gem 'sentient_user'
 gem 'flash_cookie_session'
 gem "redis", "~> 2.2.2"
+gem 'foreman'
+gem 'haml-rails'
+gem 'active_reload'
+gem 'rspec-rails', '~> 2.6.0'
 
 group :development do
   #gem 'sqlite3-ruby', '~> 1.2.5', :require => nil
@@ -60,9 +64,9 @@ group :development do
   #gem 'jasmine'
   gem "unicorn", '~> 4.1.0'
   gem 'foreman'
-  gem 'haml-rails'
-  gem 'active_reload'
-  gem 'rspec-rails', '~> 2.6.0'
+  #gem 'haml-rails'
+  #gem 'active_reload'
+  #gem 'rspec-rails', '~> 2.6.0'
 end
 
 group :test do
