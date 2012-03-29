@@ -86,7 +86,9 @@ namespace :deploy do
   desc "create config database"
   task :setup_db do
     run "ln -sf #{deploy_to}/shared/config/database.yml #{current_release}/config/database.yml"
+    run "ln -sf #{deploy_to}/shared/config/redis.yml #{current_release}/config/redis.yml"
     run "ln -sf #{deploy_to}/shared/log #{current_release}/log"
+    
   end
     
   namespace :db do
