@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812102452) do
+ActiveRecord::Schema.define(:version => 20110902112234) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(:version => 20110812102452) do
     t.integer  "uploads_count",        :default => 0
     t.boolean  "deleted",              :default => false, :null => false
     t.boolean  "is_private",           :default => false, :null => false
+    t.boolean  "urgent",               :default => false, :null => false
+    t.boolean  "previous_urgent",      :default => false, :null => false
   end
 
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
@@ -186,7 +188,10 @@ ActiveRecord::Schema.define(:version => 20110812102452) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",          :default => false, :null => false
+    t.string   "token"
   end
+
+  add_index "folders", ["token"], :name => "index_folders_on_token"
 
   create_table "google_docs", :force => true do |t|
     t.integer  "project_id"
@@ -464,10 +469,11 @@ ActiveRecord::Schema.define(:version => 20110812102452) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",                   :default => false, :null => false
-    t.integer  "record_conversion_id"
-    t.string   "record_conversion_type"
     t.boolean  "is_private",                :default => false, :null => false
     t.string   "google_calendar_url_token"
+    t.boolean  "urgent",                    :default => false, :null => false
+    t.integer  "record_conversion_id"
+    t.string   "record_conversion_type"
   end
 
   add_index "tasks", ["assigned_id"], :name => "index_tasks_on_assigned_id"
@@ -568,10 +574,10 @@ ActiveRecord::Schema.define(:version => 20110812102452) do
     t.boolean  "default_watch_new_task",                         :default => false
     t.boolean  "default_watch_new_conversation",                 :default => false
     t.boolean  "default_watch_new_page",                         :default => false
-    t.string   "authentication_token"
     t.boolean  "notify_pages",                                   :default => false
     t.string   "google_calendar_url_token"
     t.boolean  "auto_accept_invites",                            :default => true
+    t.string   "authentication_token"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_auth_token", :unique => true
