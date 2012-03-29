@@ -17,6 +17,8 @@ gem 'json'
 #gem 'jquery-rails'
 
 #Temporary hack - Fix once this ticket: is resolved
+gem 'capistrano'
+gem 'passenger'
 gem 'activesupport-i18n-patch', :git => 'https://github.com/teambox/activesupport-i18n-patch.git'
 
 gem 'nokogiri'
