@@ -10,6 +10,8 @@ group :rails do
   gem 'text-format', '>= 0.6.3', :require => 'text/format'
 end
 
+gem "capistrano"
+
 #Temporary hack - Fix once this ticket: is resolved
 gem 'activesupport-i18n-patch', :git => 'git://github.com/teambox/activesupport-i18n-patch.git'
 
