@@ -5,7 +5,7 @@
 # Configuration shared between all environments:
 defaults: &defaults
   # The domain from where your app is served
-  app_domain: localhost
+  app_domain: teambox.ikusei.de
 
   # How many activities should activity feeds display?
   activities_per_page: 25
@@ -76,7 +76,7 @@ defaults: &defaults
   # Set allow to true to allow the "reply to" feature for notifications.
   # This will allow users to post answers and comments by email.
   # When set to true, "reply above this line" notice will be displayed where relevant and accept emails.
-  allow_incoming_email: false
+  allow_incoming_email: true
   
   delay_data_processing: false
 
@@ -86,9 +86,9 @@ defaults: &defaults
   # Important: Email should be received in the same domain it's being sent from.
   incoming_email_settings:
     :type:      POP
-    :address:   mail.example.com
-    :user_name: USER
-    :password:  PASSWORD
+    :address:   mail.ikusei.de
+    :user_name: teambox+ikusei.de
+    :password:  Qc9DxJ9ZYxaUzZ
 
   # Allow teambox.com to gather statistics about this installation
   tracking_enabled: true
