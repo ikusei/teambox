@@ -64,3 +64,19 @@ class Folder < RoleRecord
 
 end
 
+
+# == Schema Information
+#
+# Table name: folders
+#
+#  id               :integer(4)      not null, primary key
+#  name             :string(255)
+#  user_id          :integer(4)
+#  project_id       :integer(4)
+#  parent_folder_id :integer(4)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  deleted          :boolean(1)      default(FALSE), not null
+#  token            :string(255)
+#
+

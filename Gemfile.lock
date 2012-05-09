@@ -76,6 +76,7 @@ GEM
       activesupport (= 3.0.9)
     activesupport (3.0.9)
     addressable (2.2.6)
+    annotate (2.4.0)
     arel (2.0.10)
     aws-s3 (0.6.2)
       builder
@@ -311,6 +312,7 @@ PLATFORMS
 DEPENDENCIES
   SystemTimer (~> 1.2.0)
   activesupport-i18n-patch!
+  annotate
   aws-s3 (~> 0.6.2)
   builder (~> 2.1.2)
   cancan (~> 1.4.1)

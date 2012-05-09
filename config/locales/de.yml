@@ -307,7 +307,8 @@ de:
       attach: Anhang
     hours: 
       add_hours: Stunden
-      hours: "Wie viele Stunden haben Sie in diese Aufgabe investiert?"
+      hours: "Wie viele Zeit haben Sie investiert?"
+      billable: "abrechenbar?"
       time_tracking_docs: "Lernen Sie, wie Sie Ihre Arbeitszeit dokumentieren"
       tooltip: "Füge Stunden zu dieser Aufgabe hinzu"
     new: 

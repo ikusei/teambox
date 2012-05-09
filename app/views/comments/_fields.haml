@@ -11,7 +11,8 @@
       %label
         = t('comments.hours.hours')
         = f.text_field :human_hours
-      = time_tracking_doc
+        = t('comments.hours.billable')
+        = f.check_box :billable
 
   .upload_area
     %p= t('uploads.new.select_a_file')
