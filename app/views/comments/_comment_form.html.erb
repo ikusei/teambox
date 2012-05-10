@@ -13,6 +13,7 @@
 		<%= f.text_field :human_hours, :size => 10 %>
 	</p>
 	<p>Diese Zeit ist abrechenbar? <%= f.check_box :billable %></p>
+	<%= link_to "abbrechen", "#", :id => "cancel_comment_form"%>
 	<%= f.submit "Zeit erfassen"%>
 
 <% end %>

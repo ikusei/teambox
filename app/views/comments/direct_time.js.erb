@@ -1,1 +1,4 @@
 $('popupwindow').update("<%= escape_javascript(render(:partial => '/comments/comment_form'))%>").blindDown();
+document.on("click", "#cancel_comment_form", function(e,el) {
+	$('popupwindow').blindUp();	
+});
