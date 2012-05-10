@@ -64,7 +64,7 @@ class Comment < ActiveRecord::Base
     :reject_if => lambda { |google_docs| google_docs['title'].blank? || google_docs['url'].blank? }
   
   attr_accessible :body, :status, :assigned, :hours, :human_hours, :billable,
-    :upload_ids, :uploads_attributes, :due_on, :urgent, :google_docs_attributes, :private_ids, :is_private
+    :upload_ids, :uploads_attributes, :due_on, :urgent, :google_docs_attributes, :private_ids, :is_private, :redate
 
   attr_accessor :is_importing, :private_ids, :is_private_set, :activity
 
@@ -92,6 +92,7 @@ class Comment < ActiveRecord::Base
   
   def redate_comment
     if self.redate.present? && self.redate != self.created_at
+      self.redate = self.redate + Time.now.min.minutes + Time.now.hour.hours
       self.created_at = self.redate
       self.save
     end

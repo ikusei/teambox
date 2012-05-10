@@ -139,7 +139,11 @@ module TasksHelper
     datepicker_info = if show_urgent_flag && f.object.urgent?
       t('date_picker.urgent.short')
     elsif selected_date.blank? 
-      t('date_picker.no_date_assigned')
+      if options[:message].present?
+        options[:message]
+      else
+        t('date_picker.no_date_assigned')
+      end
     else 
       selected_date
     end
