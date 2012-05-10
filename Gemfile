@@ -10,9 +10,6 @@ group :rails do
   gem 'text-format', '>= 0.6.3', :require => 'text/format'
 end
 
-gem "capistrano"
-gem "rvm-capistrano"
-
 #Temporary hack - Fix once this ticket: is resolved
 gem 'activesupport-i18n-patch', :git => 'git://github.com/teambox/activesupport-i18n-patch.git'
 
@@ -48,6 +45,8 @@ gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
 gem 'jammit'
 
 group :development do
+  gem "capistrano"
+  gem "rvm-capistrano"
   gem 'sqlite3-ruby', '~> 1.2.5', :require => nil
   gem 'ruby-debug', '~> 0.10.3', :require => nil
   gem 'mongrel', '~> 1.1.5', :require => nil
