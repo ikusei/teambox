@@ -1,9 +1,17 @@
 class CommentsController < ApplicationController
 
-  before_filter :load_comment, :except => :create
+  before_filter :load_comment, :except => [:create, :direct_time]
   
   rescue_from CanCan::AccessDenied do |exception|
     handle_cancan_error(exception)
+  end
+  
+  def direct_time
+    @comment = Comment.new
+    @comment.target_type = "Task"
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
   end
   
   def create

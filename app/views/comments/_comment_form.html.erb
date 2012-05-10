@@ -1,0 +1,18 @@
+<h2>Neue Zeit erfassen:</h2>
+
+<%= form_for @comment, :remote => true do |f| %>
+	<%= f.hidden_field :target_type %>
+	<h3>Bitte Projekt und Aktivität auswählen</h3>
+	<p>
+		<%= f.select :project_id, options_from_collection_for_select(current_user.projects, :id, :name), :include_blank => true%>
+		<%= f.select :target_id, options_from_collection_for_select(Task.where("project_id in (?)", current_user.project_ids), :id, :name), :include_blank => true%>
+	</p>
+	<p>
+		<%= date_picker(f, :redate, {:message => "Heute"}, :disabled => false) %>
+		<span>habe ich folgende Zeit investiert</span>
+		<%= f.text_field :human_hours, :size => 10 %>
+	</p>
+	<p>Diese Zeit ist abrechenbar? <%= f.check_box :billable %></p>
+	<%= f.submit "Zeit erfassen"%>
+
+<% end %>

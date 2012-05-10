@@ -26,6 +26,8 @@ Teambox::Application.routes.draw do
   match 'api/changes' => 'apidocs#changes', :as => :api_changes
   match 'api/:model' => 'apidocs#model', :as => :api_model
 
+  match 'direct_time' => "comments#direct_time", :as => :direct_time
+  resources :comments, :only => [:create]
   resources :sprockets, :only => [:index, :show]
 
   #Constrain all requests to the ssl constraint
