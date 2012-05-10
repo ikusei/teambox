@@ -11,6 +11,7 @@ group :rails do
 end
 
 gem "capistrano"
+gem "rvm-capistrano"
 
 #Temporary hack - Fix once this ticket: is resolved
 gem 'activesupport-i18n-patch', :git => 'git://github.com/teambox/activesupport-i18n-patch.git'

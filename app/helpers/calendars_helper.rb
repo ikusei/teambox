@@ -241,7 +241,8 @@ module CalendarsHelper
         :organization_id => comment.project.organization_id,
         :user_id => comment.user_id,
         :task_id => task ? task.id : 0,
-        :hours => comment.hours.to_f
+        :hours => comment.hours.to_f,
+        :billable => comment.billable ? true : false
       }.to_json
     end
  

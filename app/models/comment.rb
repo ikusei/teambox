@@ -88,6 +88,15 @@ class Comment < ActiveRecord::Base
   after_create  :trigger_target_callbacks
   after_destroy :cleanup_activities, :cleanup_conversation, :cleanup_task
 
+  after_save :redate_comment
+  
+  def redate_comment
+    if self.redate.present? && self.redate != self.created_at
+      self.created_at = self.redate
+      self.save
+    end
+  end
+
   # must happen after copy_ownership_from_target
   formats_attributes :body
 

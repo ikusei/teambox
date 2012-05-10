@@ -22,6 +22,8 @@
             = comment_task_status(comment)
             = comment_task_due_on(comment)
           - if comment.hours?
+            - if comment.billable
+              = content_tag(:span, "(abrechenbar)")
             = content_tag(:span, human_hours(comment.hours), :class => :hours)
 
         - if comment.task_comment? and comment.assigned_transition?

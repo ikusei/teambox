@@ -67,6 +67,7 @@ module TasksHelper
       end.join(' ').html_safe
     end
   end
+
   
   def task_status(task,status_type)
     status_for_column = status_type == :column ? "task_status_#{task.status_name}" : "task_counter"

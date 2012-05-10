@@ -9,6 +9,7 @@
   - if task_form
     .field.text_field.hours_field
       %label
+        = date_picker(f, :redate, {}, :disabled => false)
         = t('comments.hours.hours')
         = f.text_field :human_hours
         = t('comments.hours.billable')

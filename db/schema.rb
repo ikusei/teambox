@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902112234) do
+ActiveRecord::Schema.define(:version => 20120510131054) do
 
   create_table "activities", :force => true do |t|
     t.integer  "user_id"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20110902112234) do
     t.boolean  "is_private",           :default => false, :null => false
     t.boolean  "urgent",               :default => false, :null => false
     t.boolean  "previous_urgent",      :default => false, :null => false
+    t.datetime "redate"
   end
 
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"

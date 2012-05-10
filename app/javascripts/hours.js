@@ -124,7 +124,8 @@ var Hours = {
         project_id: comment.project_id,
         user_id: comment.user_id,
         task_id: comment.task_id,
-        hours: comment.hours
+        hours: comment.hours,
+		billable: comment.billable
       }
       
       var d = record.date
@@ -149,7 +150,7 @@ var Hours = {
       var date = v.date
       if (date) {
         var calBlock = $("day_" + (date.getMonth()+1) + "_" + date.getDate())
-        func(v, v.list, calBlock)
+        func(v, v.list, v.listBillable, calBlock)
       }
     })
   },
@@ -161,8 +162,11 @@ var Hours = {
   sumByHours: function(field, map) {
     var comments = this.getFilteredComments()
     var weekSum = [{},{},{},{},{},{}]
+	var weekSumBillable = [{},{},{},{},{},{}]
     var totalSum = {}
+	var totalSumBillable = {}
     var weekTotal = 0
+	var weeKTotalBillable = 0
     this.showWeekends = false
     
     // Hide all comments
@@ -176,15 +180,24 @@ var Hours = {
         item.date = null
       
       var list = {}
+	  var listBillable = {}
       values.each(function(c){
         // Total day
         var id = c[field]
         var value = list[id]
-        if (value == null || value == undefined)
+        if (value == null || value == undefined){
           list[id] = c.hours
-        else 
+		  if (c.billable){
+		  	listBillable[id] = c.hours
+		  } else {
+			listBillable[id] = 0
+		  }
+        } else {
           list[id] += c.hours
-          
+		  if (c.billable){
+		  	listBillable[id] += c.hours          
+		  }
+		}
         $('comment_' + c.id).show()
         
         // Weekday?
@@ -198,22 +211,42 @@ var Hours = {
         // Total week
         var week = Math.floor((c.date - Hours.start_date) / (86400000 * 7))
         var sum = weekSum[week][id]
-        if (sum == null || sum == undefined)
+        if (sum == null || sum == undefined){
           weekSum[week][id] = c.hours
-        else
+		  if (c.billable){
+		  	weekSumBillable[week][id] = c.hours
+		  } else {
+			weekSumBillable[week][id] = 0
+		  }
+		} else {
           weekSum[week][id] += c.hours
-        
+		  if (c.billable){
+		  	weekSumBillable[week][id] += c.hours
+		  }
+        }
         // Total month
         sum = totalSum[id]
-        if (sum == null || sum == undefined)
+        if (sum == null || sum == undefined) {
           totalSum[id] = c.hours
-        else
+		  if (c.billable){
+ 		  	totalSumBillable[id] = c.hours
+		  } else {
+			totalSumBillable[id] = 0	
+		  }
+        }else{
           totalSum[id] += c.hours
-        
+		  if (c.billable){
+		  	totalSumBillable[id] += c.hours
+		  }
+        }
         weekTotal += c.hours
+		if (c.billable){
+		  weeKTotalBillable += c.hours 
+		}
       })
       
       item.list = $H(list)
+	  item.listBillable = $H(listBillable)
       return item
     })
     
@@ -221,22 +254,29 @@ var Hours = {
     
     for (var i=0; i<5; i++) {
       var values = weekSum[i]
+	  var valuesBillable = weekSumBillable[i]
       for (var key in values) {
-        var code = "<p class=\"hours\">" + map[key] + '<br/>' + values[key].friendlyHours(2) + "</p>"
+        var code = "<p class=\"hours\">" + map[key] + '<br/>' + values[key].friendlyHours(2) + '<br/>abrechenbar:<br/>' + valuesBillable[key].friendlyHours(2) +"</p>"
         $('week_' + i).insert({top:code})
       }
     }
     
     for (var key in totalSum) {
-      var code = "<p class=\"hours\">" + map[key] + '<br/>' + totalSum[key].friendlyHours(2) + "</p>"
+      var code = "<p class=\"hours\">" + map[key] + '<br/>' + totalSum[key].friendlyHours(2) + '<br/>abrechenbar:<br/>' +totalSumBillable[key].friendlyHours(2) +"</p>"
       $('hour_total').insert({top:code})
     }
-    $('total_sum').innerHTML = weekTotal.friendlyHours()
+    $('total_sum').innerHTML = weekTotal.friendlyHours() + '<br/><br/> abrechenbar:<br/>' + weeKTotalBillable.friendlyHours(2)
     
     // Insert comments into the calendar
-    this.insertCommentBlocks(comments, function(v, list, block){
+    this.insertCommentBlocks(comments, function(v, list, listBillable, block){
       list.keys().each(function(key){
-        var code = "<p class=\"hours\">" +  map[key] + "<br/>" + list.get(key).friendlyHours(2) + " </p>"
+		if (listBillable != undefined && listBillable.get(key) != undefined){
+		  var abrechenbar = "<br/>abrechenbar:<br/>"  + listBillable.get(key).friendlyHours(2)	
+		} else {
+		  var abrechenbar = ""	
+		}
+        
+        var code = "<p class=\"hours\">" +  map[key] + "<br/>" + list.get(key).friendlyHours(2) + abrechenbar + " </p>"
         block.insert({bottom:code})
       })
     })
