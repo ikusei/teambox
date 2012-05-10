@@ -1,6 +1,6 @@
 unless Teambox.config.heroku?
   require 'cucumber/rake/task'
-  require 'rspec/core/rake_task'
+  #require 'rspec/core/rake_task'
 
   namespace :rcov do
     Cucumber::Rake::Task.new(:cucumber_run) do |t|
