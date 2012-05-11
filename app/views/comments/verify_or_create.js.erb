@@ -1,5 +1,7 @@
 <% if @success %>
 	$('popupwindow').update("Gespeichert").highlight().blindUp();
 <% else %>
-	$('popupwindow').update("<%= escape_javascript(render(:partial => '/comments/comment_form'))%>").highlight();
+	$('popupwindow').update("<%= escape_javascript(render(:partial => '/comments/comment_form'))%>");
+	jQuery("#comment_project_id").highlight();
+	jQuery("#comment_target_id").highlight();
 <% end %>
