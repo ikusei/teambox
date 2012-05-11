@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
   
   def verify_or_create
     @comment = Comment.new(params[:comment])
-    
+    @comment.user_id = current_user.id
     if @comment.target_id
       @comment.project_id = @comment.target.project_id
     end
