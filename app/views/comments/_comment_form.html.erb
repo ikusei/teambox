@@ -5,7 +5,6 @@
 		<%= f.hidden_field :target_type %>
 		<h3>Bitte Projekt und Aktivität auswählen</h3>
 		<p><%= f.select :project_id, current_user.projects.collect{|p| [p.name, p.id]}, :include_blank => "Projekt auswählen"%></p>
-		<p><%#= f.select :target_id, Task.where("project_id in (?)", @comment.project_id || current_user.project_ids).collect{|t| [t.name, t.id]}, :include_blank => "Task auswählen"%></p>
 		<p><%= f.select :target_id, option_groups_from_collection_for_select(TaskList.where("project_id in (?)", @comment.project_id || current_user.project_ids), :tasks, :name, :id, :name, @comment.target_id  ), :include_blank => "Task auswählen"%></p>
 		<p>
 			<%= date_picker(f, :redate, {:message => "Heute"}, :disabled => false) %>
