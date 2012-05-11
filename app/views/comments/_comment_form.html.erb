@@ -21,11 +21,11 @@
 </div>
 
 <script type="text/javascript">
-	jQuery("#comment_project_id").bind("change", function(){
+	jQuery("#new_comment_form").bind("change", function(){
 		jQuery("#submit_params").attr("value", "false");
 		jQuery('#comment_form_submit_button').trigger('click');
 	});
-	jQuery("#comment_target_id").bind("change", function(){
+	jQuery("#new_comment_form").bind("change", function(){
 		jQuery("#submit_params").attr("value", "false")
 		jQuery('#comment_form_submit_button').trigger('click');
 	});
