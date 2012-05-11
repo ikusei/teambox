@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
       @comment.project_id = @comment.target.project_id
     end
     
-    if @comment.project_id.present? && @comment.target_id.present? && @comment.human_hours.present? && @comment.target_type.present? && params[:commit] != "Formular aktualisieren"
+    if @comment.project_id.present? && @comment.target_id.present? && @comment.human_hours.present? && @comment.target_type.present? && params[:submit_params] == "true"
       if @comment.save
         @success = true
       end
