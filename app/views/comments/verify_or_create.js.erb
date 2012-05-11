@@ -1,0 +1,5 @@
+<% if @success %>
+	$('popupwindow').update("Gespeichert").highlight().blindUp();
+<% else %>
+	$('popupwindow').update("<%= escape_javascript(render(:partial => '/comments/comment_form'))%>").highlight();
+<% end %>

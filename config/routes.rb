@@ -28,6 +28,7 @@ Teambox::Application.routes.draw do
 
   match 'direct_time' => "comments#direct_time", :as => :direct_time
   resources :comments, :only => [:create]
+  match 'verify_or_create_comment' => "comments#verify_or_create", :as => :verify_or_create_comment
   resources :sprockets, :only => [:index, :show]
 
   #Constrain all requests to the ssl constraint

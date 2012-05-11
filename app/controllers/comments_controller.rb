@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_filter :load_comment, :except => [:create, :direct_time]
+  before_filter :load_comment, :except => [:create, :direct_time, :verify_or_create]
   
   rescue_from CanCan::AccessDenied do |exception|
     handle_cancan_error(exception)
@@ -9,6 +9,25 @@ class CommentsController < ApplicationController
   def direct_time
     @comment = Comment.new
     @comment.target_type = "Task"
+    respond_to do |format|
+      format.js { render :layout => false}
+    end
+  end
+  
+  
+  def verify_or_create
+    @comment = Comment.new(params[:comment])
+    
+    if @comment.target_id
+      @comment.project_id = @comment.target.project_id
+    end
+    
+    if @comment.project_id.present? && @comment.target_id.present? && @comment.human_hours.present? && @comment.target_type.present? && params[:commit] != "Formular aktualisieren"
+      if @comment.save
+        @success = true
+      end
+    end
+    
     respond_to do |format|
       format.js { render :layout => false}
     end

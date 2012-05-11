@@ -1,19 +1,29 @@
-<h2>Neue Zeit erfassen:</h2>
+<div class="new_comment_form_slider">
+	<h2>Neue Zeit erfassen:</h2>
 
-<%= form_for @comment, :remote => true do |f| %>
-	<%= f.hidden_field :target_type %>
-	<h3>Bitte Projekt und Aktivität auswählen</h3>
-	<p>
-		<%= f.select :project_id, options_from_collection_for_select(current_user.projects, :id, :name), :include_blank => true%>
-		<%= f.select :target_id, options_from_collection_for_select(Task.where("project_id in (?)", current_user.project_ids), :id, :name), :include_blank => true%>
-	</p>
-	<p>
-		<%= date_picker(f, :redate, {:message => "Heute"}, :disabled => false) %>
-		<span>habe ich folgende Zeit investiert</span>
-		<%= f.text_field :human_hours, :size => 10 %>
-	</p>
-	<p>Diese Zeit ist abrechenbar? <%= f.check_box :billable %></p>
-	<%= link_to "abbrechen", "#", :id => "cancel_comment_form"%>
-	<%= f.submit "Zeit erfassen"%>
+	<%= form_for @comment, :url => verify_or_create_comment_path(), :remote => true, :html => {:id => "new_comment_form"} do |f| %>
+		<%= f.hidden_field :target_type %>
+		<h3>Bitte Projekt und Aktivität auswählen</h3>
+		<p><%= f.select :project_id, current_user.projects.collect{|p| [p.name, p.id]}, :include_blank => "Projekt auswählen"%></p>
+		<p><%#= f.select :target_id, Task.where("project_id in (?)", @comment.project_id || current_user.project_ids).collect{|t| [t.name, t.id]}, :include_blank => "Task auswählen"%></p>
+		<p><%= f.select :target_id, option_groups_from_collection_for_select(TaskList.where("project_id in (?)", @comment.project_id || current_user.project_ids), :tasks, :name, :id, :name, @comment.target_id  ), :include_blank => "Task auswählen"%></p>
+		<p>
+			<%= date_picker(f, :redate, {:message => "Heute"}, :disabled => false) %>
+			<span>habe ich folgende Zeit investiert</span>
+			<%= f.text_field :human_hours, :size => 10 %>
+		</p>
+		<p>Diese Zeit ist abrechenbar? <%= f.check_box :billable %></p>
+		<p>Beschreibung: <%= f.text_field :body, :size => 50 %></p>
+		<%= link_to "abbrechen", "#", :id => "cancel_comment_form"%>
+		<%= f.submit "Formular aktualisieren", :id => "comment_form_submit_button" %>
+		<%= f.submit "Diese Zeit erfassen!", :id => "comment_form_submit_button_send"%>
 
-<% end %>
+	<% end %>	
+</div>
+
+<script type="text/javascript">
+	jQuery("#new_comment_form").bind("change", function(){
+		jQuery('#comment_form_submit_button').trigger('click');
+	});
+</script>
+
