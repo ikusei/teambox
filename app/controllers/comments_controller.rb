@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   def direct_time
     @comment = Comment.new
     @comment.target_type = "Task"
+    @comment.user_id = current_user.id
     respond_to do |format|
       format.js { render :layout => false}
     end
@@ -18,6 +19,7 @@ class CommentsController < ApplicationController
   def verify_or_create
     @comment = Comment.new(params[:comment])
     @comment.user_id = current_user.id
+    
     if @comment.target_id
       @comment.project_id = @comment.target.project_id
     end
