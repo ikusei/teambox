@@ -3,7 +3,7 @@
 - thread_id = "#{thread_class}_#{thread.id}"
 - comments = thread.comments
 - last_comment = comments.first
-- if thread.class == String
+- if thread.respond_to?("project") == false
   - thread = Activity.new(:project_id => Project.last.id)
 
 .thread{ :'data-id' => thread.id, :'data-class' => thread_class, :id => "thread_#{thread_id}", :'data-project-id' => thread.project.id , :'data-creator-user-id' => thread.try(:user_id), :'data-watcher-ids' => (thread.try(:watcher_ids)||[]).join(','), :class => thread.is_private ? 'private' : nil, :'data-assigned-id' => thread.try(:assigned_id) }
