@@ -31,6 +31,10 @@ class TaskListsController < ApplicationController
         render 'task_lists/reload', :layout => false
       }
       f.print { render :layout => 'print' }
+      f.xml { 
+        @tasks = @current_project.tasks.active
+        render :template => "task_lists/index", :layout => false
+      }
     end
   end
 
