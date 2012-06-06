@@ -25,14 +25,14 @@ class TaskList < RoleRecord
       raise ArgumentError, "Unrecognized version for Pivotal Tracker API"
     end
     
-    if story[:description].split("_")[0] == "pivotal"
-      pivotal_list_name = story[:description].split("_")[1]
-      pivotal_task_id = story[:description].split("_")[2]
+    if story[:other_id].present?
+      pivotal_task_id = story[:other_id]
+      pivotal_list_name = Task.find_by_id(pivotal_task_id).task_list.name
     else
       pivotal_list_name = "Pivotal Tracker"
       pivotal_task_id = "0"
     end
-    
+        
     task_list = self.find_by_name(pivotal_list_name) || self.create! { |new_list|
       new_list.user = new_list.project.hook_user if new_list.project
       new_list.name = "Pivotal Tracker"
