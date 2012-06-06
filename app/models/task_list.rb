@@ -41,7 +41,7 @@ class TaskList < RoleRecord
     
     author = task_list.project.users.detect { |u| u.name == activity[:author] }  
     
-    task = task_list.tasks.from_pivotal_tracker(story[:id]).first || task_list.tasks.from_pivotal_tracker(pivotal_task_id).first || task_list.tasks.build { |new_task|
+    task = task_list.tasks.from_pivotal_tracker(story[:id]).first || task_list.tasks.where(:id => pivotal_task_id).first || task_list.tasks.build { |new_task|
       new_task.name = "#{story[:name] || activity[:description]} [PT#{story[:id]}]"
       new_task.user = author || task_list.user
     }
