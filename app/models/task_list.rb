@@ -24,6 +24,8 @@ class TaskList < RoleRecord
     else
       raise ArgumentError, "Unrecognized version for Pivotal Tracker API"
     end
+    logger.info("============================")
+    logger.info(activity[:description])
     
     if activity[:description].split("_")[0] == "pivotal"
       pivotal_list_name = activity[:description].split("_")[1]
