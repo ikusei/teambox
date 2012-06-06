@@ -25,7 +25,15 @@ class TaskList < RoleRecord
       raise ArgumentError, "Unrecognized version for Pivotal Tracker API"
     end
     
-    task_list = self.find_by_name("Pivotal Tracker") || self.create! { |new_list|
+    if activity[:description].split("_")[0] == "pivotal"
+      pivotal_list_name = activity[:description].split("_")[1]
+      pivotal_task_id = activity[:description].split("_")[2]
+    else
+      pivotal_list_name = "Pivotal Tracker"
+      pivotal_task_id = "0"
+    end
+    
+    task_list = self.find_by_name(pivotal_list_name) || self.create! { |new_list|
       new_list.user = new_list.project.hook_user if new_list.project
       new_list.name = "Pivotal Tracker"
       yield new_list if block_given?
@@ -33,7 +41,7 @@ class TaskList < RoleRecord
     
     author = task_list.project.users.detect { |u| u.name == activity[:author] }  
     
-    task = task_list.tasks.from_pivotal_tracker(story[:id]).first || task_list.tasks.from_pivotal_tracker(activity[:description].to_s.gsub("task_id_", "")).first || task_list.tasks.build { |new_task|
+    task = task_list.tasks.from_pivotal_tracker(story[:id]).first || task_list.tasks.from_pivotal_tracker(pivotal_task_id).first || task_list.tasks.build { |new_task|
       new_task.name = "#{story[:name] || activity[:description]} [PT#{story[:id]}]"
       new_task.user = author || task_list.user
     }
