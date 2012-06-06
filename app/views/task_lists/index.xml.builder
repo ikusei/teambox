@@ -1,14 +1,14 @@
-xml.instruct!
-xml.external_stories do
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.external_stories(:type=>"array") do
   @tasks.each do |task|
     xml.external_story do
       xml.external_id task.id
       xml.name task.name
       xml.description task.task_list.name
       xml.requested_by task.user.login
-      xml.created_at task.created_at
+      xml.tag! "created_at", task.created_at.strftime("%Y/%m%d %H:%M:%S UTC"), :type => "datetime"
       xml.story_type "feature"
-      xml.estimate 0
+      xml.tag! "estimate", 0, :type => "integer"
     end
   end
 end
