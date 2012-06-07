@@ -6,7 +6,7 @@
 		<%= hidden_field_tag :submit_params, "true" %>
 		<h3>Bitte Projekt und Aktivität auswählen</h3>
 		<p><%= f.select :project_id, current_user.projects.collect{|p| [p.name, p.id]}, :include_blank => "Projekt auswählen"%></p>
-		<p><%= f.select :target_id, option_groups_from_collection_for_select(TaskList.where("project_id in (?)", @comment.project_id || current_user.project_ids), :tasks, :name, :id, :name, @comment.target_id  ), :include_blank => "Task auswählen"%></p>
+		<p><%= f.select :target_id, option_groups_from_collection_for_select(TaskList.includes(:tasks).where(:tasks => {:status => Task::ACTIVE_STATUS_CODES}).where("task_lists.project_id in (?)", @comment.project_id || current_user.project_ids), :tasks, :name, :id, :name, @comment.target_id  ), :include_blank => "Task auswählen"%></p>
 		<p>
 			<%= date_picker(f, :redate, {:message => "Heute"}, :disabled => false) %>
 			<span>habe ich folgende Zeit investiert</span>
