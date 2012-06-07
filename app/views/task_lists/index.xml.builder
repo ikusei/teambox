@@ -1,6 +1,7 @@
 xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
 xml.external_stories(:type=>"array") do
   @tasks.each do |task|
+    next if task.name =~ /.* \[PT.*\]/
     xml.external_story do
       xml.external_id task.id
       xml.name task.name
