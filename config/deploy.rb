@@ -89,6 +89,7 @@ namespace :deploy do
     run "ln -sf #{deploy_to}/shared/config/redis.yml #{current_release}/config/redis.yml"
     run "ln -sf #{deploy_to}/shared/log #{current_release}/log"
     run "ln -sf #{deploy_to}/shared/logos/1 #{current_release}/public/logos/1"
+    run "ln -sf #{deploy_to}/shared/lassets #{current_release}/assets"
     
   end
     
