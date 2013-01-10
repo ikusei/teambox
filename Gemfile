@@ -1,7 +1,7 @@
 source :rubygems
 
 group :rails do
-  gem 'rails', '~> 3.0.9'
+  gem 'rails', '~> 3.0.19'
   gem 'builder', '~> 2.1.2'
   gem 'memcache-client', '>= 1.7.4', :require => nil
   gem 'tzinfo', '~> 0.3.12'
@@ -41,7 +41,7 @@ gem 'paperclip', '~> 2.3.6'
 gem 'teambox-permalink_fu', :require => 'permalink_fu'
 gem 'cancan', '~> 1.4.1'
 gem 'immortal', '~> 0.1.7'
-gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer' 
+gem 'rack-ssl-enforcer', :require => 'rack/ssl-enforcer'
 gem 'jammit'
 
 group :development do
